@@ -21,8 +21,9 @@ class AlunosController < ApplicationController
     end
   
     def update
+      @aluno = Aluno.find(params[:id])
       if @aluno.update(aluno_params)
-        render json: @aluno
+        render json: @aluno.reload
       else
         render json: @aluno.errors, status: :unprocessable_entity
       end
@@ -39,7 +40,7 @@ class AlunosController < ApplicationController
     end
   
     def aluno_params
-      params.require(:aluno).permit(:nome, :idade, :endereco, :curso, :email)
+      params.require(:aluno).permit(:nome, :idade, :curso, :email, :endereco)
     end
   end
   
